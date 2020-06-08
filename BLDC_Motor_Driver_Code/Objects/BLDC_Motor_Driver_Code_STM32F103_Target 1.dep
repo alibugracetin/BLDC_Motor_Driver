@@ -1,6 +1,6 @@
 Dependencies for Project 'BLDC_Motor_Driver_Code_STM32F103', Target 'Target 1': (DO NOT MODIFY !)
 CompilerVersion: 5060750::V5.06 update 6 (build 750)::ARMCC
-F (.\main.c)(0x5EDE4B63)(--c99 --gnu -c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I ..\BLDC_Motor_Driver_Code-I.\RTE\Device\STM32F103C8-I.\RTE\_Target_1-IC:\Users\ASUS\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\ASUS\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-IC:\Users\ASUS\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\StdPeriph_Driver\inc-D__UVISION_VERSION="529" -D_RTE_ -DSTM32F10X_MD-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (.\main.c)(0x5EDE5289)(--c99 --gnu -c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I ..\BLDC_Motor_Driver_Code-I.\RTE\Device\STM32F103C8-I.\RTE\_Target_1-IC:\Users\ASUS\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\ASUS\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-IC:\Users\ASUS\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\StdPeriph_Driver\inc-D__UVISION_VERSION="529" -D_RTE_ -DSTM32F10X_MD-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (C:\Users\ASUS\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include\stm32f10x.h)(0x53BA53B0)
 I (.\RTE\_Target_1\RTE_Components.h)(0x5EDE4577)
 I (C:\Users\ASUS\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm3.h)(0x5D25D706)
