@@ -17,10 +17,14 @@ void GPIO_Input_Definition( void );
 void GPIO_Hall_Input_Definition( void );
 void GPIO_ADC_Input_Definition( void );
 void adcRead_Definition( void );
+void GPIODefinitionForDriver( void );
+void PWM_Pin_Definition( void );
+void PWM_Timer_Init( void );
 
 uint16_t ADC_Read(void);
 int GetInformationFromSensor( void );
 void OpenAllSwitch( int pwmA, int pwmB, int pwmC );
+void PWM_Definition( int pwmA, int pwmB, int pwmC );
 
 
 int main()
@@ -31,6 +35,10 @@ int main()
 	Delay_Init();
 	GPIO_ADC_Input_Definition();
 	adcRead_Definition();
+	GPIODefinitionForDriver();
+	PWM_Pin_Definition();
+	PWM_Timer_Init();
+	PWM_Definition(pwm, pwm, pwm);
 	
 	while(1)
 	{
@@ -87,7 +95,7 @@ int main()
 
 		}
 		
-		
+		pwm = ADC_Read();
 		
 		if((Start == 1 ) && (ClockWise == 1 ) && (MotorMode == 1 ))
 		{
@@ -172,6 +180,7 @@ void GPIO_ADC_Input_Definition()
 	GPIO_Init(GPIOA, &GPIO_ADC_Input_Definition);
 		
 }
+
 void adcRead_Definition()
 {
 
@@ -189,6 +198,7 @@ void adcRead_Definition()
 	ADC_Cmd(ADC1,ENABLE);
 
 }
+
 uint16_t ADC_Read(void)
 {
 	
@@ -197,6 +207,25 @@ uint16_t ADC_Read(void)
 	while(ADC_GetFlagStatus(ADC1,ADC_FLAG_EOC)==RESET);
 	return ADC_GetConversionValue(ADC1);
 	
+}
+
+void GPIODefinitionForDriver(){
+	   
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
+
+  GPIO_InitTypeDef GPIODefinitionForDriver;
+  GPIODefinitionForDriver.GPIO_Mode = GPIO_Mode_Out_PP;
+	//Output Push-Pull Mode
+  GPIODefinitionForDriver.GPIO_Pin = GPIO_Pin_12 |GPIO_Pin_13 | GPIO_Pin_14;
+	/*
+	PB12 = AL
+	PB13 = BL
+	PB14 = CL
+	*/
+  GPIODefinitionForDriver.GPIO_Speed = GPIO_Speed_2MHz;
+	
+  GPIO_Init(GPIOB, &GPIODefinitionForDriver);
+
 }
 
 int GetInformationFromSensor( void )
@@ -236,6 +265,76 @@ int GetInformationFromSensor( void )
 	return Step;
 
 }
+
+void PWM_Pin_Definition()
+{
+	
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
+	
+	GPIO_InitTypeDef PWM_Pin_Definition;
+	
+	PWM_Pin_Definition.GPIO_Mode = GPIO_Mode_AF_PP;
+	//Alternative Function Output Push Pull Mode
+	PWM_Pin_Definition.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_7 | GPIO_Pin_8;
+	/*
+	PB6 = AH
+	PB7 = BH
+	PB8 = CH
+	*/
+	PWM_Pin_Definition.GPIO_Speed = GPIO_Speed_2MHz;
+
+	GPIO_Init(GPIOB, &PWM_Pin_Definition);
+	
+}
+
+void PWM_Timer_Init()
+{
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM4, ENABLE);
+	
+	TIM_TimeBaseInitTypeDef TIM_BaseStruct;
+	
+	TIM_BaseStruct.TIM_Prescaler = 0;
+	// (72000000/(0+1)) = frequency
+  TIM_BaseStruct.TIM_CounterMode = TIM_CounterMode_Up;
+	TIM_BaseStruct.TIM_Period = 7199;
+	//  72000000/(7199+1) = 10kHz PWM 
+  TIM_BaseStruct.TIM_ClockDivision = TIM_CKD_DIV1;
+  TIM_BaseStruct.TIM_RepetitionCounter = 0;
+  // Initialize TIM4 
+  TIM_TimeBaseInit(TIM4, &TIM_BaseStruct);
+  // Start count on TIM4 
+  TIM_Cmd(TIM4, ENABLE);
+
+}
+
+void PWM_Definition( int pwmA, int pwmB, int pwmC)
+{
+	
+	TIM_OCInitTypeDef timerPWM;
+
+	TIM_OCStructInit(&timerPWM);
+	timerPWM.TIM_Pulse = pwmA;
+	timerPWM.TIM_OCMode = TIM_OCMode_PWM1;
+	timerPWM.TIM_OutputState = TIM_OutputState_Enable;
+	timerPWM.TIM_OCPolarity = TIM_OCPolarity_High;
+	TIM_OC1Init(TIM4, &timerPWM);
+	
+	TIM_OCStructInit(&timerPWM);
+	timerPWM.TIM_Pulse = pwmB;
+	timerPWM.TIM_OCMode = TIM_OCMode_PWM1;
+	timerPWM.TIM_OutputState = TIM_OutputState_Enable;
+	timerPWM.TIM_OCPolarity = TIM_OCPolarity_High;
+	TIM_OC2Init(TIM4, &timerPWM);
+	
+	TIM_OCStructInit(&timerPWM);
+	timerPWM.TIM_Pulse = pwmC;
+	timerPWM.TIM_OCMode = TIM_OCMode_PWM1;
+	timerPWM.TIM_OutputState = TIM_OutputState_Enable;
+	timerPWM.TIM_OCPolarity = TIM_OCPolarity_High;
+	TIM_OC3Init(TIM4, &timerPWM);
+	
+}
+
 void OpenAllSwitch(int pwmA, int pwmB, int pwmC)
 {
 
