@@ -20,6 +20,12 @@ void adcRead_Definition( void );
 void GPIODefinitionForDriver( void );
 void PWM_Pin_Definition( void );
 void PWM_Timer_Init( void );
+void Ah_Bl( int pwmA );
+void Ah_Cl( int pwmA );
+void Bh_Cl( int pwmB );
+void Bh_Al( int pwmB );
+void Ch_Al( int pwmC );
+void Ch_Bl( int pwmC );
 
 uint16_t ADC_Read(void);
 int GetInformationFromSensor( void );
@@ -103,6 +109,37 @@ int main()
 			Position = GetInformationFromSensor();
 			//Every 70uS Read Rotor position from GetInformationFromSensor
 			DeadTime(70);
+				
+			switch(Position)
+			{
+				case 1:
+							Ah_Bl(pwm);
+							break;
+				
+				case 2:
+							Ah_Cl(pwm);
+							break;
+				
+				case 3:
+							Bh_Cl(pwm);
+							break;
+				
+				case 4:
+							Bh_Al(pwm);
+							break;
+				
+				case 5:
+							Ch_Al(pwm);
+							break;
+				
+				case 6:
+							Ch_Bl(pwm);
+							break;
+				
+				default:
+							break;
+						
+				}
 			
 			
 		}
@@ -115,10 +152,39 @@ int main()
 			Position = GetInformationFromSensor();
 			//Every 70uS Read Rotor position from GetInformationFromSensor
 			DeadTime(70);
+			
+			switch(Position)
+			{
+				case 1:
+							Bh_Al(pwm);
+							break;
+				
+				case 2:
+							Ch_Al(pwm);
+							break;
+				
+				case 3:
+							Ch_Bl(pwm);
+							break;
+				
+				case 4:
+							Ah_Bl(pwm);
+							break;
+				
+				case 5:
+							Ah_Cl(pwm);
+							break;
+				
+				case 6:
+							Bh_Cl(pwm);
+							break;
+				
+				default:
+							break;
+				
+			}
 		}
-	
 	}
-	
 }
 
 void GPIO_Input_Definition()
@@ -335,8 +401,58 @@ void PWM_Definition( int pwmA, int pwmB, int pwmC)
 	
 }
 
+void Ah_Bl( int pwmA )
+{
+	PWM_Definition(pwmA, 0, 0);
+	GPIO_ResetBits(GPIOB,GPIO_Pin_12);
+	GPIO_SetBits(GPIOB,GPIO_Pin_13);
+	GPIO_ResetBits(GPIOB,GPIO_Pin_14);
+}
+
+void Ah_Cl( int pwmA )
+{
+	PWM_Definition(pwmA, 0, 0);
+	GPIO_ResetBits(GPIOB,GPIO_Pin_12);
+	GPIO_ResetBits(GPIOB,GPIO_Pin_13);
+	GPIO_SetBits(GPIOB,GPIO_Pin_14);
+}
+
+void Bh_Cl( int pwmB )
+{
+	PWM_Definition(0, pwmB, 0);
+	GPIO_ResetBits(GPIOB,GPIO_Pin_12);
+	GPIO_ResetBits(GPIOB,GPIO_Pin_13);
+	GPIO_SetBits(GPIOB,GPIO_Pin_14);
+}
+
+void Bh_Al( int pwmB )
+{
+	PWM_Definition(0, pwmB, 0);
+	GPIO_SetBits(GPIOB,GPIO_Pin_12);
+	GPIO_ResetBits(GPIOB,GPIO_Pin_13);
+	GPIO_ResetBits(GPIOB,GPIO_Pin_14);
+}
+
+void Ch_Al( int pwmC )
+{
+	PWM_Definition(0, 0, pwmC);
+	GPIO_SetBits(GPIOB,GPIO_Pin_12);
+	GPIO_ResetBits(GPIOB,GPIO_Pin_13);
+	GPIO_ResetBits(GPIOB,GPIO_Pin_14);
+}
+
+void Ch_Bl( int pwmC )
+{
+	PWM_Definition(0, 0, pwmC);
+	GPIO_ResetBits(GPIOB,GPIO_Pin_12);
+	GPIO_SetBits(GPIOB,GPIO_Pin_13);
+	GPIO_ResetBits(GPIOB,GPIO_Pin_14);
+}
+
 void OpenAllSwitch(int pwmA, int pwmB, int pwmC)
 {
-
-	
+	PWM_Definition(0 , 0 , 0);
+	GPIO_ResetBits(GPIOB,GPIO_Pin_12);
+	GPIO_ResetBits(GPIOB,GPIO_Pin_13);
+	GPIO_ResetBits(GPIOB,GPIO_Pin_14);
 }
