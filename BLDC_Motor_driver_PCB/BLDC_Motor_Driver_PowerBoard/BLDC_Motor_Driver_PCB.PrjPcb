@@ -1095,6 +1095,7 @@ PartTypes=0
 
 [NetInfos]
 Net1=NetName=Net*_1|NetColor=$006E6EFF
+Net2=NetName=+5|NetColor=$006E6EFF
 
 [Comparison Options]
 ComparisonOptions0=Kind=Net|MinPercent=75|MinMatch=3|ShowMatch=-1|Confirm=-1|UseName=-1|InclAllRules=0
