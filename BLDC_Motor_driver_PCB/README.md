@@ -12,10 +12,10 @@ Anahtarları uygun zamanlarda iletime/yalıtıma geçirmek için STM32F103C8T6 i
 Eklenen potansiyometre ile güç anahtarların Gate-Source gerilimi basitçe değiştirilmektedir.
 MCU kartında STM32F103C8T6 programlama işlemi Header ile yapılmaktadır.
 
-#Driver MCU
+Driver MCU
 
 ![](images/BLDC_Motor_Driver_MCU.png)
 
-#Power MCU
+Power MCU
 
 ![](images/BLDC_Motor_Driver_Power_MCU.png)
