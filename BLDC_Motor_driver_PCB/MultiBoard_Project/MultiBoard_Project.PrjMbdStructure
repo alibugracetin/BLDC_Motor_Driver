@@ -1,0 +1,4 @@
+Record=DiagramHierarchy|SourceDocument=MultiBoardBLDCMotorDriverSchematic.MbsDoc|Kind=Multi-board Schematic Module|Designator=2|Source=..\BLDC_Motor_Driver_MCUBoard\BLDC_Motor_Driver_MCUBoard.PrjPcb
+Record=SubProject|SourceDocument=MultiBoardBLDCMotorDriverSchematic.MbsDoc|ProjectPath=..\BLDC_Motor_Driver_MCUBoard\BLDC_Motor_Driver_MCUBoard.PrjPcb
+Record=DiagramHierarchy|SourceDocument=MultiBoardBLDCMotorDriverSchematic.MbsDoc|Kind=Multi-board Schematic Module|Designator=1|Source=..\BLDC_Motor_Driver_PowerBoard\BLDC_Motor_Driver_PCB.PrjPcb
+Record=SubProject|SourceDocument=MultiBoardBLDCMotorDriverSchematic.MbsDoc|ProjectPath=..\BLDC_Motor_Driver_PowerBoard\BLDC_Motor_Driver_PCB.PrjPcb
